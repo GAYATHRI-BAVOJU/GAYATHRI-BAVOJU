@@ -1,39 +1,39 @@
--- Create Students table
+-- Create Students Table
 CREATE TABLE Students (
-    student_id INT AUTO_INCREMENT PRIMARY KEY,
-    first_name VARCHAR(50) NOT NULL,
-    last_name VARCHAR(50) NOT NULL,
-    date_of_birth DATE,
-    email VARCHAR(100) UNIQUE NOT NULL,
-    phone VARCHAR(15)
+    StudentID INT PRIMARY KEY,
+    Name VARCHAR(100),
+    Email VARCHAR(100),
+    Phone VARCHAR(20),
+    Department VARCHAR(50)
 );
 
--- Create Teachers table
+-- Create Teachers Table
 CREATE TABLE Teachers (
-    teacher_id INT AUTO_INCREMENT PRIMARY KEY,
-    first_name VARCHAR(50) NOT NULL,
-    last_name VARCHAR(50) NOT NULL,
-    email VARCHAR(100) UNIQUE NOT NULL,
-    phone VARCHAR(15)
+    TeacherID INT PRIMARY KEY,
+    Name VARCHAR(100),
+    Email VARCHAR(100),
+    Phone VARCHAR(20),
+    Department VARCHAR(50)
 );
 
--- Create Books table
+-- Create Books Table
 CREATE TABLE Books (
-    book_id INT AUTO_INCREMENT PRIMARY KEY,
-    title VARCHAR(100) NOT NULL,
-    author VARCHAR(100),
-    isbn VARCHAR(20) UNIQUE NOT NULL,
-    published_date DATE,
-    genre VARCHAR(50)
+    BookID INT PRIMARY KEY,
+    Title VARCHAR(100),
+    Author VARCHAR(100),
+    Category VARCHAR(50),
+    ISBN VARCHAR(20)
 );
 
--- Create IssuedBooks table
-CREATE TABLE IssuedBooks (
-    issue_id INT AUTO_INCREMENT PRIMARY KEY,
-    book_id INT,
-    user_id INT,
-    user_type ENUM('student', 'teacher'),
-    issue_date DATE,
-    return_date DATE,
-    FOREIGN KEY (book_id) REFERENCES Books(book_id)
+-- Create Issues Table
+CREATE TABLE Issues (
+    IssueID INT PRIMARY KEY AUTO_INCREMENT,
+    BookID INT,
+    PersonID INT,
+    PersonType ENUM('Student', 'Teacher'),
+    IssueDate DATE,
+    ReturnDate DATE,
+    Fine DECIMAL(5,2),
+    FOREIGN KEY (BookID) REFERENCES Books(BookID),
+    FOREIGN KEY (PersonID) REFERENCES Students(StudentID) -- or Teachers(TeacherID) based on your ER design.
 );
